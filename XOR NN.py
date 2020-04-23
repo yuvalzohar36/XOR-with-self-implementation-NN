@@ -15,7 +15,7 @@ class NeuralNetwork:
         self.num_layers = len(layers)
         self.layers = layers
         self.biases, self.weights, self.activations, self.Z_list = [], [], [], []
-        self.learning_rate = 0.02
+        self.learning_rate = 0.05
         for i in range(1, len(layers)):
             self.biases.append(np.random.rand(self.layers[i], 1))
         for i in range(len(layers) - 1):
@@ -97,18 +97,14 @@ class NeuralNetwork:
         return (outputs - desired_outputs)
 
 if __name__ == '__main__':
-
         nn = NeuralNetwork([2,9,1])
         input = [[[0],[0]],[[0],[1]],[[1],[0]],[[1],[1]]]
         target = [[0],[1],[1],[0]]
         for i in range(100000):
-            a_shuffled, b_shuffled = shuffle(np.array(input), np.array(target))
+            inputs_shuffled, targets_shuffled = shuffle(np.array(input), np.array(target))
             for k in range(4):
-                nn.train(a_shuffled[k], b_shuffled[k], 100000)
+                nn.train(inputs_shuffled[k], targets_shuffled[k], 100000)
         print(nn.feed_forword(input[0]))
         print(nn.feed_forword(input[1]))
         print(nn.feed_forword(input[2]))
         print(nn.feed_forword(input[3]))
-
-
-
